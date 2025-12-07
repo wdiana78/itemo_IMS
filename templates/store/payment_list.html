@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Payments | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Payment Records</h2>
+    <a href="{% url 'store:payment_create' %}" class="btn btn-primary">
+        + Add Payment
+    </a>
+</div>
+
+{% if payments %}
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Order</th>
+                            <th>Method</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Phone</th>
+                            <th>Reference</th>
+                            <th>Created</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment in payments %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    {% if payment.order %}
+                                        Order #{{ payment.order.id }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>{{ payment.get_method_display }}</td>
+                                <td>{{ payment.amount }}</td>
+                                <td>{{ payment.get_status_display }}</td>
+                                <td>{{ payment.phone_number|default:"-" }}</td>
+                                <td>{{ payment.reference|default:"-" }}</td>
+                                <td>{{ payment.created_at|date:"Y-m-d H:i" }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        No payment records yet. Click "Add Payment" to create one.
+    </div>
+{% endif %}
+{% endblock %}

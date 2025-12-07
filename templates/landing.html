@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% block title %}Home | ITEMO IMS{% endblock %}
+{% block content %}
+
+<div class="landing-shell">
+
+    <!-- HERO -->
+    <section class="landing-hero section-spaced">
+        <div class="row align-items-center gy-4 gx-lg-5">
+            <!-- Left: text -->
+            <div class="col-lg-6">
+                <div class="hero-copy-panel">
+                    <span class="hero-pill d-inline-flex align-items-center mb-3">
+                        <span class="hero-pill-dot me-2"></span>
+                        Inventory made calm for busy project teams
+                    </span>
+
+                    <h1 class="hero-title mb-3">
+                        Smart inventory for construction and stock heavy businesses.
+                    </h1>
+
+                    <p class="hero-subtitle mb-4">
+                        ITEMO IMS gives you a clear view of materials, suppliers, and outgoing items,
+                        so you avoid surprise stock outs and last minute rush at site level.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'store:dashboard' %}" class="btn btn-lg btn-brand-primary">
+                                Go to dashboard
+                            </a>
+                        {% else %}
+                            <a href="{% url 'users:register' %}" class="btn btn-lg btn-brand-primary">
+                                Get started
+                            </a>
+                            <a href="{% url 'users:login' %}" class="btn btn-lg btn-outline-brand">
+                                Login
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="hero-meta small text-muted">
+                        <div class="hero-meta-item">
+                            <span class="dot dot-orange me-2"></span> Built with Django and Bootstrap
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="dot dot-amber me-2"></span> Designed for multi site projects
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="dot dot-rose me-2"></span> M Pesa ready through Daraja sandbox
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: "app" preview -->
+            <div class="col-lg-6">
+                <div class="hero-visual-card">
+                    <div class="hero-window-bar">
+                        <div class="d-flex align-items-center">
+                            <span class="window-dot dot-red"></span>
+                            <span class="window-dot dot-amber"></span>
+                            <span class="window-dot dot-emerald"></span>
+                        </div>
+                        <span class="hero-window-label">
+                            ITEMO IMS · Live overview
+                        </span>
+                    </div>
+
+                    <div class="hero-visual-header d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <div class="small text-muted">Live overview</div>
+                            <div class="fw-semibold">Main store - construction project</div>
+                        </div>
+                        <span class="badge badge-soft-amber">Demo</span>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-4">
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label">Total items</div>
+                                <div class="mini-stat-value">128</div>
+                                <div class="mini-stat-foot text-success small">
+                                    Stock stable
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label">Low stock</div>
+                                <div class="mini-stat-value text-warning">9</div>
+                                <div class="mini-stat-foot small">
+                                    Review today
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mini-stat-card">
+                                <div class="mini-stat-label">Pending orders</div>
+                                <div class="mini-stat-value text-brand-sky">4</div>
+                                <div class="mini-stat-foot small">
+                                    With suppliers
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-table-box">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="small fw-semibold text-muted">Recent material lines</div>
+                            <span class="small text-brand-primary">View all</span>
+                        </div>
+                        <div class="hero-table-row">
+                            <span class="hero-table-name">Y12 reinforcement bars</span>
+                            <span class="hero-table-tag tag-ok">OK</span>
+                            <span class="hero-table-qty">320 pcs</span>
+                        </div>
+                        <div class="hero-table-row">
+                            <span class="hero-table-name">Cement 50 kg</span>
+                            <span class="hero-table-tag tag-low">Low</span>
+                            <span class="hero-table-qty">22 bags</span>
+                        </div>
+                        <div class="hero-table-row">
+                            <span class="hero-table-name">Formwork timber</span>
+                            <span class="hero-table-tag tag-out">Out</span>
+                            <span class="hero-table-qty">0 units</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO / WHAT / WHY STRIP -->
+    <section class="section-spaced landing-strip">
+        <div class="row gy-3 gx-md-4">
+            <div class="col-md-4">
+                <div class="info-strip-card">
+                    <div class="info-strip-label">Who is it for</div>
+                    <p class="info-strip-text mb-0">
+                        Construction firms, hardware shops, and any stock heavy team.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-strip-card">
+                    <div class="info-strip-label">What it tracks</div>
+                    <p class="info-strip-text mb-0">
+                        Items, suppliers, clients or departments, orders, issues, and payments.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-strip-card">
+                    <div class="info-strip-label">Why it helps</div>
+                    <p class="info-strip-text mb-0">
+                        Fewer stock surprises, better planning, and a cleaner audit trail.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE STRENGTHS -->
+    <section class="section-spaced">
+        <div class="row gy-4 align-items-center">
+            <div class="col-lg-5">
+                <div class="section-label">Core strengths</div>
+                <h2 class="section-title mb-3">
+                    Follow material from supplier to site in one simple system.
+                </h2>
+                <p class="section-subtitle">
+                    ITEMO IMS keeps the flow of materials clear from purchase order
+                    to delivery to items issued out to departments or project sites.
+                    Simple screens, familiar forms, less confusion.
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="feature-simple">
+                            <div class="feature-badge">01</div>
+                            <h6 class="fw-semibold mb-1">Clean stock records</h6>
+                            <p class="small mb-0 text-muted">
+                                Items, quantities, and values recorded in one place with clear status for low or out of stock.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-simple">
+                            <div class="feature-badge">02</div>
+                            <h6 class="fw-semibold mb-1">Supplier visibility</h6>
+                            <p class="small mb-0 text-muted">
+                                Central list of suppliers with contacts and their related purchase orders.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-simple">
+                            <div class="feature-badge">03</div>
+                            <h6 class="fw-semibold mb-1">Issues and payments</h6>
+                            <p class="small mb-0 text-muted">
+                                Track what left the store, who received it, and how it was paid for, including M Pesa records.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORKFLOW -->
+    <section class="section-spaced">
+        <div class="row gy-4">
+            <div class="col-lg-6">
+                <div class="section-label">How it fits your workflow</div>
+                <h2 class="section-title mb-3">
+                    A simple daily flow your team can actually follow.
+                </h2>
+
+                <div class="workflow-list">
+                    <div class="workflow-item">
+                        <div class="workflow-dot"></div>
+                        <div class="workflow-content">
+                            <h6 class="fw-semibold mb-1">Step 1 - Record items and suppliers</h6>
+                            <p class="small mb-0 text-muted">
+                                Capture your common materials, suppliers, and project clients or departments, once.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="workflow-dot"></div>
+                        <div class="workflow-content">
+                            <h6 class="fw-semibold mb-1">Step 2 - Log orders and deliveries</h6>
+                            <p class="small mb-0 text-muted">
+                                Raise purchase orders and update stock when deliveries arrive at the main store.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="workflow-item">
+                        <div class="workflow-dot"></div>
+                        <div class="workflow-content">
+                            <h6 class="fw-semibold mb-1">Step 3 - Issue items and track payments</h6>
+                            <p class="small mb-0 text-muted">
+                                Record issues to sites or departments and attach payment details so finance and stores stay aligned.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="preview-frame">
+                    <div class="preview-inner">
+                        <span class="small text-muted">
+                            Add a construction site or warehouse photo here from your static files.
+                        </span>
+                    </div>
+                    <ul class="small text-muted mt-3 mb-0 ps-3">
+                        <li>Works on laptop or desktop through the browser.</li>
+                        <li>Built with Django only, using beginner friendly patterns.</li>
+                        <li>Ready for more modules later - item requests, procurement, payments, and more.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section-spaced">
+        <div class="cta-band">
+            <div class="row align-items-center gy-3">
+                <div class="col-md-8">
+                    <h3 class="mb-1 text-white">Ready to give your inventory a calm home</h3>
+                    <p class="mb-0 text-white-50 small">
+                        Start with a few items, suppliers, and one project. You can grow ITEMO IMS as your work grows.
+                    </p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'store:dashboard' %}" class="btn btn-light btn-lg">
+                            Open dashboard
+                        </a>
+                    {% else %}
+                        <a href="{% url 'users:register' %}" class="btn btn-light btn-lg">
+                            Get started
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

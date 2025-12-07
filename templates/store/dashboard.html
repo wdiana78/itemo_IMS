@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | ITEMO IMS{% endblock %}
+{% block content %}
+
+<div class="dashboard-shell">
+
+    <!-- Top header: title + search -->
+    <div class="dashboard-header d-flex flex-wrap justify-content-between align-items-start mb-4">
+        <div class="mb-3 mb-lg-0">
+            <span class="dashboard-kicker">Store overview</span>
+            <h2 class="mb-1">Inventory dashboard</h2>
+            <p class="text-muted mb-0">
+                Central view of your items, stock levels, suppliers, clients, and key insights.
+            </p>
+        </div>
+
+        <div class="dashboard-header-actions">
+            <form method="get" class="d-flex flex-wrap gap-2 justify-content-lg-end">
+                <input type="text"
+                       name="search"
+                       value="{{ search_query }}"
+                       class="form-control dashboard-search-input"
+                       placeholder="Search items, categories, suppliers">
+                <button class="btn btn-outline-brand btn-sm" type="submit">
+                    Search
+                </button>
+            </form>
+
+            {% if search_query %}
+                <p class="small text-muted mt-2 mb-0">
+                    Showing results for <span class="fw-semibold">"{{ search_query }}"</span>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Stat blocks row 1 -->
+    <div class="row g-3 mb-3">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-label">Total items</div>
+                <div class="stat-value">{{ total_items }}</div>
+                <div class="stat-foot">All active records in the store.</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-label">Total stock</div>
+                <div class="stat-value">{{ total_stock }}</div>
+                <div class="stat-foot">Sum of all quantities on hand.</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-label">Stock value</div>
+                <div class="stat-value">KSh {{ total_value|floatformat:0 }}</div>
+                <div class="stat-foot">Based on current item values.</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card stat-card-alert">
+                <div class="stat-label">Out of stock</div>
+                <div class="stat-value text-danger">{{ out_of_stock_count }}</div>
+                <div class="stat-foot">Items at zero quantity.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stat blocks row 2 -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="stat-card stat-card-warn">
+                <div class="stat-label">Low stock</div>
+                <div class="stat-value text-warning">{{ low_stock_count }}</div>
+                <div class="stat-foot">Items at or below the low threshold.</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-label">Suppliers</div>
+                <div class="stat-value">{{ supplier_count }}</div>
+                <div class="stat-foot">Registered material suppliers.</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-label">Clients / departments</div>
+                <div class="stat-value">{{ client_count }}</div>
+                <div class="stat-foot">Sites, projects, or internal units.</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-label">Pending payments</div>
+                <div class="stat-value text-brand-primary">{{ pending_payments }}</div>
+                <div class="stat-foot">Open payment records to clear.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content: table + side column -->
+    <div class="row g-3 mb-4">
+        <!-- Left: inventory table -->
+        <div class="col-lg-8">
+            <div class="card dashboard-card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="mb-0">Inventory records</h5>
+                        <p class="small text-muted mb-0">
+                            List of items with quantities and status.
+                        </p>
+                    </div>
+                    <a href="{% url 'store:item_create' %}" class="btn btn-brand-primary btn-sm">
+                        + Add item
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive dashboard-table-wrapper">
+                        <table class="table table-hover align-middle mb-0 dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th class="text-end">Quantity</th>
+                                    <th>Status</th>
+                                    <th>Date added</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td>
+                                            <strong>{{ item.name }}</strong>
+                                            {% if item.description %}
+                                                <div class="small text-muted">
+                                                    {{ item.description|truncatechars:60 }}
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ item.category|default:"-" }}</td>
+                                        <td class="text-end">
+                                            {{ item.quantity }}
+                                        </td>
+                                        <td>
+                                            {% if item.quantity == 0 %}
+                                                <span class="status-pill status-pill-out">
+                                                    Out of stock
+                                                </span>
+                                            {% elif item.quantity <= 5 %}
+                                                <span class="status-pill status-pill-low">
+                                                    Low
+                                                </span>
+                                            {% else %}
+                                                <span class="status-pill status-pill-ok">
+                                                    Available
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ item.date_added|date:"Y-m-d H:i" }}</td>
+                                        <td class="text-end">
+                                            <a href="{% url 'store:item_update' item.pk %}"
+                                               class="btn btn-sm btn-outline-secondary me-1">
+                                                Edit
+                                            </a>
+                                            <a href="{% url 'store:item_delete' item.pk %}"
+                                               class="btn btn-sm btn-outline-danger">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            No items yet. Start by adding your first record.
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Optional small legend under the table -->
+            <div class="small text-muted d-flex flex-wrap gap-3">
+                <span><span class="status-pill status-pill-ok me-1"></span> OK</span>
+                <span><span class="status-pill status-pill-low me-1"></span> Low</span>
+                <span><span class="status-pill status-pill-out me-1"></span> Out of stock</span>
+            </div>
+        </div>
+
+        <!-- Right: side column -->
+        <div class="col-lg-4">
+            <!-- Recently added -->
+            <div class="card dashboard-card mb-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Recently added</h6>
+                    <a href="{% url 'store:item_list' %}" class="btn btn-sm btn-outline-brand">
+                        View all
+                    </a>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for item in recent_items %}
+                        <div class="list-group-item dashboard-list-item">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>{{ item.name }}</strong>
+                                    <div class="small text-muted">
+                                        {{ item.date_added|date:"M d, Y H:i" }}
+                                    </div>
+                                </div>
+                                <span class="badge bg-light text-muted">{{ item.quantity }} pcs</span>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <div class="list-group-item dashboard-list-item text-muted small">
+                            No recent items to show.
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="card dashboard-card">
+                <div class="card-header">
+                    <h6 class="mb-0">Quick actions</h6>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{% url 'store:supplier_list' %}"
+                       class="list-group-item dashboard-list-item list-group-item-action">
+                        Manage suppliers
+                    </a>
+                    <a href="{% url 'store:client_list' %}"
+                       class="list-group-item dashboard-list-item list-group-item-action">
+                        Manage clients / departments
+                    </a>
+                    <a href="{% url 'store:order_list' %}"
+                       class="list-group-item dashboard-list-item list-group-item-action">
+                        View purchase orders
+                    </a>
+                    <a href="{% url 'store:issue_list' %}"
+                       class="list-group-item dashboard-list-item list-group-item-action">
+                        View issued items
+                    </a>
+                    <a href="{% url 'store:payment_list' %}"
+                       class="list-group-item dashboard-list-item list-group-item-action">
+                        View payments
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

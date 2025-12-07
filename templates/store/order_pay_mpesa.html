@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Pay Order with M-Pesa | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Pay Supplier Order with M-Pesa</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted small mb-2">
+                    Order #{{ order.id }} for {{ order.supplier.name }}
+                </p>
+                <p class="mb-3">
+                    <strong>Amount:</strong>
+                    KSh {{ order.total_cost }}
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label">
+                            M-Pesa phone number (format 2547XXXXXXXX)
+                        </label>
+                        <input type="text"
+                               name="phone_number"
+                               id="phone_number"
+                               class="form-control"
+                               placeholder="2547XXXXXXXX"
+                               required>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'store:order_list' %}"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            Pay with M-Pesa
+                        </button>
+                    </div>
+                </form>
+
+                <p class="small text-muted mt-3 mb-0">
+                    When you click "Pay with M-Pesa", you should receive
+                    a PIN prompt on the phone number you entered.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

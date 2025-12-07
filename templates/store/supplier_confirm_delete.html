@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Delete Supplier | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4 p-lg-5">
+                <h3 class="mb-3 text-danger">Delete Supplier</h3>
+                <p>
+                    Are you sure you want to delete
+                    <strong>{{ client.name }}</strong>?
+                </p>
+                <p class="text-muted small mb-4">
+                    This action cannot be undone!
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <a href="{% url 'store:client_list' %}" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        Yes, delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

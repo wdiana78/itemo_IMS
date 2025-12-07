@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Record Supplier Order | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4 p-lg-5">
+                <h3 class="mb-4">Record Supplier Order</h3>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        {{ form.supplier.label_tag }}
+                        {{ form.supplier }}
+                        {{ form.supplier.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.item.label_tag }}
+                        {{ form.item }}
+                        {{ form.item.errors }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.quantity_ordered.label_tag }}
+                                {{ form.quantity_ordered }}
+                                {{ form.quantity_ordered.errors }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.unit_price.label_tag }}
+                                {{ form.unit_price }}
+                                {{ form.unit_price.errors }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.status.label_tag }}
+                        {{ form.status }}
+                        {{ form.status.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.notes.label_tag }}
+                        {{ form.notes }}
+                        {{ form.notes.errors }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'store:order_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            Save Order
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

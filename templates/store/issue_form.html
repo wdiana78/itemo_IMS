@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Record Stock Issue | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4 p-lg-5">
+                <h3 class="mb-4">Record Stock Issue</h3>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        {{ form.item.label_tag }}
+                        {{ form.item }}
+                        {{ form.item.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.client.label_tag }}
+                        {{ form.client }}
+                        {{ form.client.errors }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.quantity.label_tag }}
+                                {{ form.quantity }}
+                                {{ form.quantity.errors }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                {{ form.issue_date.label_tag }}
+                                {{ form.issue_date }}
+                                {{ form.issue_date.errors }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.issued_by.label_tag }}
+                        {{ form.issued_by }}
+                        {{ form.issued_by.errors }}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.notes.label_tag }}
+                        {{ form.notes }}
+                        {{ form.notes.errors }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'store:issue_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            Save Issue
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

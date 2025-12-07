@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Delete order | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-xl-5">
+        <div class="card shadow-sm border-0 surface-card">
+            <div class="card-body p-4">
+                <h3 class="mb-3 text-danger">Delete supplier order</h3>
+                <p class="mb-3">
+                    You are about to delete this supplier order:
+                </p>
+
+                <ul class="list-unstyled mb-4">
+                    <li><strong>Supplier:</strong> {{ order.supplier.name }}</li>
+                    <li><strong>Item:</strong> {{ order.item.name|default:"Not set" }}</li>
+                    <li><strong>Quantity:</strong> {{ order.quantity_ordered }}</li>
+                    <li><strong>Total cost:</strong> {{ order.total_cost }}</li>
+                    <li><strong>Ordered at:</strong> {{ order.ordered_at }}</li>
+                </ul>
+
+                <p class="text-muted small mb-4">
+                    This action cannot be undone. Stock figures will not change automatically;
+                    use adjustments if needed.
+                </p>
+
+                <form method="post" class="d-flex justify-content-between">
+                    {% csrf_token %}
+                    <a href="{% url 'store:order_list' %}" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-outline-danger">
+                        Yes, delete order
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

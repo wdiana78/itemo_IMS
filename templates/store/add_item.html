@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Add Item | ITEMO IMS{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-7 col-xl-6">
+
+        <!-- Page heading + helper action -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <span class="dashboard-kicker d-block">Items</span>
+                <h2 class="mb-1">Add new item</h2>
+                <p class="text-muted mb-0">
+                    Create a stock record that will appear in your inventory dashboard and reports.
+                </p>
+            </div>
+            <div class="d-none d-md-block">
+                <a href="{% url 'store:item_list' %}" class="btn btn-outline-brand btn-sm">
+                    View all items
+                </a>
+            </div>
+        </div>
+
+        <!-- Main form card -->
+        <div class="card border-0 shadow-sm surface-card mb-4">
+            <div class="card-body p-4">
+                <h5 class="mb-3">Item details</h5>
+                <p class="small text-muted mb-3">
+                    Fill in the basic information about this material or product.
+                    Required fields are marked in the form.
+                </p>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    <button type="submit" class="btn btn-brand-primary w-100 mt-2">
+                        Save item
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Context / tips band -->
+        <div class="preview-frame">
+            <div class="preview-inner">
+                <p class="fw-semibold mb-2">What happens after you save</p>
+                <p class="small text-muted mb-2">
+                    The item will be available when creating orders, issuing stock, and tracking payments.
+                    It will also contribute to the totals on your inventory dashboard.
+                </p>
+                <ul class="list-unstyled small mb-0">
+                    <li>• Use clear names your team already uses on site or in the store.</li>
+                    <li>• Group items into categories so low stock reports stay organized.</li>
+                    <li>• You can edit quantity, unit cost, or status later without losing history.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

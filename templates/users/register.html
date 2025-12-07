@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}Register | ITEMO IMS{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center mb-4">
+    <div class="col-lg-5 col-md-7">
+        <div class="card shadow-sm border-0 auth-card">
+            <div class="card-body p-4 p-lg-5">
+
+                <div class="text-center mb-3">
+                    <span class="badge rounded-pill bg-light text-dark small mb-2">
+                        ITEMO IMS · Create account
+                    </span>
+                    <h3 class="mb-2">Join Itemo</h3>
+                    <p class="text-muted mb-0">
+                        Set up your account to start managing items, suppliers and stock.
+                    </p>
+                </div>
+
+                <hr class="my-4">
+
+                {# If you're using a Django form (e.g. UserCreationForm), it will still work #}
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    {# Manual fields (safe defaults for most simple register views) #}
+                    <div class="mb-3">
+                        <label class="form-label" for="id_username">Username</label>
+                        <input id="id_username"
+                               name="username"
+                               class="form-control"
+                               placeholder="Choose a username"
+                               autocomplete="username"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="id_email">Email (optional)</label>
+                        <input id="id_email"
+                               type="email"
+                               name="email"
+                               class="form-control"
+                               placeholder="name@example.com"
+                               autocomplete="email">
+                        <div class="form-text small text-muted">
+                            Used for communication about your account only.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="id_password1">Password</label>
+                        <input id="id_password1"
+                               type="password"
+                               name="password1"
+                               class="form-control"
+                               placeholder="Create a strong password"
+                               autocomplete="new-password"
+                               required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label" for="id_password2">Confirm password</label>
+                        <input id="id_password2"
+                               type="password"
+                               name="password2"
+                               class="form-control"
+                               placeholder="Repeat password"
+                               autocomplete="new-password"
+                               required>
+                        <div class="form-text small text-muted">
+                            Make sure both passwords match exactly.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-brand-primary w-100 mb-3">
+                        Create account
+                    </button>
+
+                    <p class="text-center small mb-1">
+                        Already have an account?
+                        <a href="{% url 'users:login' %}">Log in</a>.
+                    </p>
+                    <p class="text-center small text-muted mb-0">
+                        Demo environment: use training data only, not real company passwords.
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{# Small extra section to make the page feel more complete and professional #}
+<div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+        <div class="surface-card">
+            <div class="row g-3 align-items-start">
+                <div class="col-md-6">
+                    <h6 class="text-uppercase small text-muted mb-2">
+                        What you get with an Itemo account
+                    </h6>
+                    <ul class="small mb-0 text-muted">
+                        <li>Access to the inventory dashboard and item records.</li>
+                        <li>Ability to add, edit and track items, suppliers and clients.</li>
+                        <li>Clear visibility of low stock and out of stock items.</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="text-uppercase small text-muted mb-2">
+                        Good account practices
+                    </h6>
+                    <ul class="small mb-0 text-muted">
+                        <li>Use a password you do not reuse on other systems.</li>
+                        <li>Log out on shared devices after each session.</li>
+                        <li>Contact your admin if you need your role or access updated.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

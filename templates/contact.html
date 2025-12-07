@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %}Contact | ITEMO IMS{% endblock %}
+
+{# Optional: this block only works if you add a "sidebar" block in base.html as shown later #}
+{% block sidebar %}{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-shell">
+
+    <!-- Page header -->
+    <div class="dashboard-header d-flex flex-wrap justify-content-between align-items-start mb-4">
+        <div class="mb-3 mb-lg-0">
+            <span class="dashboard-kicker">Get in touch</span>
+            <h2 class="mb-1">Contact ITEMO IMS</h2>
+            <p class="text-muted mb-0">
+                This is a demo project. Use this page to show where support and project owners can be reached.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main contact row: form + map -->
+    <div class="row g-4 mb-4">
+        <!-- Contact form and details -->
+        <div class="col-lg-7">
+            <div class="surface-card h-100">
+                <h5 class="mb-3">Send us a note</h5>
+                <p class="text-muted small mb-4">
+                    In a production setup, this form could send messages to the system admin or support email.
+                    For this demo, the button is disabled.
+                </p>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input class="form-control" placeholder="Your name">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Subject</label>
+                        <input class="form-control" placeholder="What is your question about">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" rows="4"
+                                  placeholder="How can we help"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-brand-primary" disabled>
+                        Send message (demo only)
+                    </button>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <h6 class="mb-1">Support email</h6>
+                        <p class="text-muted small mb-0">
+                            support@itemo-ims.demo
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="mb-1">Typical response</h6>
+                        <p class="text-muted small mb-0">
+                            Within one working day for normal inventory questions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map and location info -->
+        <div class="col-lg-5">
+            <div class="surface-card h-100">
+                <h5 class="mb-3">Where to find us</h5>
+                <p class="text-muted small">
+                    Example location based on tech training in Nairobi.
+                    You can replace this with your own office or warehouse location later.
+                </p>
+
+                <div class="rounded-4 overflow-hidden mb-3" style="border:1px solid rgba(148,163,184,0.5);">
+                    <iframe
+                        src="https://www.google.com/maps?q=eMobilis%20Westlands&output=embed"
+                        width="100%"
+                        height="260"
+                        style="border:0;"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <ul class="list-unstyled small text-muted mb-0">
+                    <li><strong>Location</strong>: Westlands, Nairobi, Kenya</li>
+                    <li><strong>Example hours</strong>: Monday to Friday, 8.30 a.m. to 5.00 p.m.</li>
+                    <li><strong>Use case</strong>: Inventory demos, training, and project reviews.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- About, usage, and support sections -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="surface-card h-100">
+                <h6 class="mb-2">About ITEMO IMS</h6>
+                <p class="text-muted small mb-0">
+                    ITEMO IMS is a demo inventory system for construction and stock heavy teams.
+                    It focuses on clear records, simple screens, and a clean audit trail from suppliers
+                    to project sites.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="surface-card h-100">
+                <h6 class="mb-2">When to contact us</h6>
+                <ul class="text-muted small mb-0 ps-3">
+                    <li>Questions about stock levels and item setup.</li>
+                    <li>Issues with supplier or client records.</li>
+                    <li>Ideas for new modules, such as requests or payments.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="surface-card h-100">
+                <h6 class="mb-2">Technical details</h6>
+                <p class="text-muted small mb-2">
+                    ITEMO IMS is built with Django and Bootstrap, using beginner friendly patterns
+                    so it is easy to extend.
+                </p>
+                <p class="text-muted small mb-0">
+                    Use this page to document where logs are kept, how to reach the admin,
+                    and how incidents are tracked for the live system.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if mode == "create" %}Add Client | ITEMO IMS{% else %}Edit Client | ITEMO IMS{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-shell">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-xl-6">
+
+            <div class="card shadow-sm border-0 auth-card">
+                <div class="card-body p-4 p-lg-5">
+
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="dashboard-kicker">Clients / departments</span>
+                            <h3 class="mb-1">
+                                {% if mode == "create" %}
+                                    Add client
+                                {% else %}
+                                    Edit client
+                                {% endif %}
+                            </h3>
+                            <p class="text-muted small mb-0">
+                                Register sites, projects, departments, or external customers
+                                so they can be used in orders, issues, and reports.
+                            </p>
+                        </div>
+
+                        <span class="badge bg-light text-muted">
+                            {% if mode == "create" %}New record{% else %}Editing{% endif %}
+                        </span>
+                    </div>
+
+                    <hr class="mb-4">
+
+                    <!-- Form -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Client basics -->
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                            {{ form.name.errors }}
+                            <div class="form-text">
+                                Use a clear name such as "Site A – Nairobi" or "ABC Contractors Ltd".
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form.contact_person.label_tag }}
+                                    {{ form.contact_person }}
+                                    {{ form.contact_person.errors }}
+                                    <div class="form-text">
+                                        Main person to reach at this client.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form.phone.label_tag }}
+                                    {{ form.phone }}
+                                    {{ form.phone.errors }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.address.label_tag }}
+                            {{ form.address }}
+                            {{ form.address.errors }}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{% url 'store:client_list' %}" class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-brand-primary">
+                                {% if mode == "create" %}Save client{% else %}Update client{% endif %}
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Small note under form -->
+                    <p class="small text-muted mt-3 mb-0">
+                        Once saved, this client will appear in orders, issues, and dashboard metrics
+                        under <strong>Clients / departments</strong>.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

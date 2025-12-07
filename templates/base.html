@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}ITEMO IMS{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap and main stylesheet -->
+    <link rel="stylesheet" href="{% static 'style/css/bootstrap-5.3.8-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/main.css' %}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand brand-text" href="{% url 'landing' %}">
+            <span class="brand-logo-circle"></span>
+            ITEMO IMS
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar" aria-controls="mainNavbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'landing' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'faq' %}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'store:dashboard' %}">Dashboard</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="navbar-text me-3 small text-muted">
+                            Logged in as {{ user.username }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-secondary btn-sm" href="{% url 'users:logout' %}">
+                            Logout
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="btn btn-outline-secondary btn-sm me-2" href="{% url 'users:login' %}">
+                            Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm" href="{% url 'users:register' %}">
+                            Register
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="page-wrapper">
+    <div class="container-fluid px-4 py-4">
+
+        {# Django messages - you can re-skin via CSS, logic stays #}
+        {% if messages %}
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+
+            {# Sidebar wrapped in a block so specific pages can remove it #}
+            {% block sidebar %}
+                {% if user.is_authenticated %}
+                    <aside class="col-12 col-md-3 col-lg-2 mb-3 sidebar">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-3">
+                                <div class="sidebar-header mb-3">
+                                    <div class="small text-muted">Quick navigation</div>
+                                </div>
+                                <nav class="nav flex-column sidebar-nav">
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'dashboard' %} active{% endif %}"
+                                       href="{% url 'store:dashboard' %}">
+                                        Overview
+                                    </a>
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'item_list' %} active{% endif %}"
+                                       href="{% url 'store:item_list' %}">
+                                        Items
+                                    </a>
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'supplier_list' %} active{% endif %}"
+                                       href="{% url 'store:supplier_list' %}">
+                                        Suppliers
+                                    </a>
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'client_list' %} active{% endif %}"
+                                       href="{% url 'store:client_list' %}">
+                                        Clients
+                                    </a>
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'order_list' %} active{% endif %}"
+                                       href="{% url 'store:order_list' %}">
+                                        Orders
+                                    </a>
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'issue_list' %} active{% endif %}"
+                                       href="{% url 'store:issue_list' %}">
+                                        Issues
+                                    </a>
+                                    <a class="sidebar-link{% if request.resolver_match.url_name == 'payment_list' %} active{% endif %}"
+                                       href="{% url 'store:payment_list' %}">
+                                        Payments
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </aside>
+                {% endif %}
+            {% endblock sidebar %}
+
+            {# Main page content #}
+            <section class="col-12 {% if user.is_authenticated %}col-md-9 col-lg-10{% else %}col-md-12 col-lg-12{% endif %}">
+                {% block content %}{% endblock %}
+            </section>
+        </div>
+
+    </div>
+</main>
+
+<footer class="site-footer mt-auto">
+    <div class="container-fluid px-4">
+
+        <div class="row gy-4">
+            <div class="col-md-4">
+                <h6 class="footer-heading">ITEMO IMS</h6>
+                <p class="small text-footer-muted mb-2">
+                    Smart inventory for construction and stock heavy teams. Follow materials
+                    from supplier to site in one clear system.
+                </p>
+                <p class="small text-footer-muted mb-0">
+                    Demo inventory project, designed to grow into a full enterprise tool.
+                </p>
+            </div>
+
+            <div class="col-6 col-md-2 col-lg-2">
+                <h6 class="footer-heading">Product</h6>
+                <ul class="footer-links">
+                    <li>
+                        <a href="{% url 'store:dashboard' %}" class="text-decoration-none">
+                            <span>Inventory dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'store:item_list' %}" class="text-decoration-none">
+                            <span>Items and categories</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'store:supplier_list' %}" class="text-decoration-none">
+                            <span>Suppliers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'store:client_list' %}" class="text-decoration-none">
+                            <span>Clients and departments</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-2 col-lg-2">
+                <h6 class="footer-heading">Workflows</h6>
+                <ul class="footer-links">
+                    <li>
+                        <a href="{% url 'store:order_list' %}" class="text-decoration-none">
+                            <span>Orders and deliveries</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'store:issue_list' %}" class="text-decoration-none">
+                            <span>Issues to sites</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'store:payment_list' %}" class="text-decoration-none">
+                            <span>Payments tracking</span>
+                        </a>
+                    </li>
+                    <li>
+                        <span>Audit trail (future module)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 col-lg-4">
+                <h6 class="footer-heading">Contact</h6>
+                <p class="small text-footer-muted mb-1">
+                    Email: support@itemo-ims.demo
+                </p>
+                <p class="small text-footer-muted mb-1">
+                    Location: Nairobi, Kenya
+                </p>
+                <p class="small text-footer-muted mb-0">
+                    Hours: Mon to Fri, 8.30 a.m. to 5.00 p.m. (demo contact only).
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom small text-footer-muted">
+            <div>© 2025 ITEMO IMS. All rights reserved.</div>
+            <div class="mt-1">
+                Calm inventory control for construction and stock heavy teams.
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+
+<script src="{% static 'style/css/bootstrap-5.3.8-dist/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

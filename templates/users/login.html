@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Login | ITEMO IMS{% endblock %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+        <div class="card shadow-sm border-0 auth-card">
+            <div class="card-body p-4 p-lg-5">
+
+                <div class="text-center mb-3">
+                    <span class="badge rounded-pill bg-light text-dark small mb-2">
+                        ITEMO IMS · Secure sign in
+                    </span>
+                    <h3 class="mb-2">Welcome back</h3>
+                    <p class="text-muted mb-0">
+                        Log in to continue working with your inventory records.
+                    </p>
+                </div>
+
+                <hr class="my-4">
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input name="username"
+                               class="form-control"
+                               placeholder="Enter username"
+                               autocomplete="username"
+                               required>
+                    </div>
+
+                    <div class="mb-2">
+                        <label class="form-label">Password</label>
+                        <input name="password"
+                               type="password"
+                               class="form-control"
+                               placeholder="Enter password"
+                               autocomplete="current-password"
+                               required>
+                        <div class="form-text small text-muted">
+                            Use the credentials provided by your admin or trainer.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rememberMe">
+                            <label class="form-check-label small" for="rememberMe">
+                                Remember this device
+                            </label>
+                        </div>
+                        <a href="#" class="small text-decoration-none">
+                            Forgot password?
+                        </a>
+                    </div>
+
+                    <button type="submit" class="btn btn-brand-primary w-100 mb-3">
+                        Login
+                    </button>
+
+                    <p class="text-center small mb-1">
+                        Do not have an account yet?
+                        <a href="{% url 'users:register' %}">Create one</a>.
+                    </p>
+                    <p class="text-center small text-muted mb-0">
+                        This is a demo environment. Data here is for practice and testing only.
+                    </p>
+                </form>
+
+                <div class="mt-4">
+                    <h6 class="small text-uppercase text-muted mb-2">
+                        Quick tips
+                    </h6>
+                    <ul class="small text-muted mb-0">
+                        <li>Log out when you are done, especially on shared computers.</li>
+                        <li>Use strong passwords that you do not reuse on other systems.</li>
+                        <li>Contact your admin if you need a new account or role change.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

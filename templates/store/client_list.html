@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Clients | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="dashboard-shell">
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-start mb-4">
+        <div class="mb-3 mb-lg-0">
+            <span class="dashboard-kicker">Clients and departments</span>
+            <h2 class="mb-1">Clients</h2>
+            <p class="text-muted mb-0">
+                Sites, projects or external customers that receive materials from your store.
+            </p>
+        </div>
+        <div class="text-lg-end">
+            <div class="small text-muted mb-2">
+                Total clients:
+                <span class="fw-semibold">
+                    {{ clients|length }}
+                </span>
+            </div>
+            <a href="{% url 'store:client_create' %}" class="btn btn-brand-primary">
+                + Add client
+            </a>
+        </div>
+    </div>
+
+    {% if clients %}
+        <!-- Clients table -->
+        <div class="card dashboard-card shadow-sm mb-3">
+            <div class="card-body p-0">
+                <div class="table-responsive dashboard-table-wrapper">
+                    <table class="table table-hover align-middle mb-0 dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Contact person</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in clients %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>
+                                        <strong>{{ client.name }}</strong>
+                                    </td>
+                                    <td>{{ client.contact_person|default:"-" }}</td>
+                                    <td>{{ client.phone|default:"-" }}</td>
+                                    <td>{{ client.email|default:"-" }}</td>
+                                    <td class="text-end">
+                                        <a href="{% url 'store:client_update' client.pk %}"
+                                           class="btn btn-sm btn-outline-secondary me-1">
+                                            Edit
+                                        </a>
+                                        <a href="{% url 'store:client_delete' client.pk %}"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Small helper text -->
+        <p class="small text-muted mb-0">
+            Tip: keep client names clear and consistent, for example
+            "Site A - Nairobi" or "ABC Projects - Warehouse", so reports and
+            dashboard metrics stay easy to read.
+        </p>
+    {% else %}
+        <!-- Empty state -->
+        <div class="card dashboard-card shadow-sm">
+            <div class="card-body text-center py-5">
+                <h5 class="mb-2">No clients yet</h5>
+                <p class="text-muted mb-4">
+                    Create your first client or department, then you can attach
+                    orders, issues and payments to it.
+                </p>
+                <a href="{% url 'store:client_create' %}" class="btn btn-brand-primary">
+                    + Add client
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

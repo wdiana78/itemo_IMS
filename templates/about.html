@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block title %}About | ITEMO IMS{% endblock %}
+{% block content %}
+
+<div class="landing-shell">
+
+    <!-- Intro / hero -->
+    <section class="section-spaced">
+        <div class="row gy-4 align-items-center">
+            <div class="col-lg-7">
+                <span class="section-label">About ITEMO IMS</span>
+                <h1 class="section-title mb-3">Smart inventory for calm, predictable work.</h1>
+                <p class="section-subtitle mb-3">
+                    ITEMO IMS is a web based inventory management system designed to help
+                    construction and stock heavy teams keep clear, reliable records. Instead of
+                    scattered spreadsheets and guesswork, managers get one place to see items,
+                    quantities, and stock status.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>Clean overview of stock levels across items and categories.</li>
+                    <li>Simple workflows for recording suppliers, clients, and movements.</li>
+                    <li>Built to feel like a real tool, even as a student project demo.</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="surface-card h-100">
+                    <h6 class="fw-semibold mb-2">Project snapshot</h6>
+                    <ul class="small text-muted mb-2">
+                        <li>Domain: Inventory for construction and stock heavy businesses.</li>
+                        <li>Core entities: Items, suppliers, clients, orders, issues, payments.</li>
+                        <li>Features: Authentication, CRUD screens, dashboard statistics.</li>
+                    </ul>
+                    <p class="small text-muted mb-0">
+                        ITEMO IMS is intentionally scoped so that beginners can understand the code,
+                        while still feeling like a tool you could grow into a full enterprise system.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem / solution -->
+    <section class="section-spaced">
+        <div class="row gy-4">
+            <div class="col-md-6">
+                <h2 class="h5 fw-semibold mb-2">The problem many teams face</h2>
+                <p class="small text-muted mb-2">
+                    Many small and medium teams manage materials using ad-hoc methods:
+                    separate spreadsheets, WhatsApp messages, and paper notes. As the work
+                    grows, it becomes difficult to answer basic questions with confidence.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>Unclear which items are low or fully out of stock.</li>
+                    <li>Hard to trace what was delivered, to which site, and when.</li>
+                    <li>No single place to review supplier performance or pending payments.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2 class="h5 fw-semibold mb-2">How ITEMO IMS helps</h2>
+                <ul class="small text-muted mb-0">
+                    <li>Central dashboard that highlights totals, low stock, and out-of-stock items.</li>
+                    <li>Clear records for suppliers, clients or departments, and their related orders.</li>
+                    <li>Simple forms for recording deliveries, issues to sites, and payment status.</li>
+                    <li>Cleaner audit trail from supplier, through store, to project sites.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SDG and impact -->
+    <section class="section-spaced">
+        <div class="surface-card">
+            <div class="row gy-4">
+                <div class="col-md-5">
+                    <h2 class="h5 fw-semibold mb-2">Link to Sustainable Development Goals</h2>
+                    <p class="small text-muted mb-0">
+                        This project supports <strong>SDG 8 – Decent Work and Economic Growth</strong>
+                        by reducing waste, interruptions, and last-minute fire-fighting in operations.
+                    </p>
+                </div>
+                <div class="col-md-7">
+                    <ul class="small text-muted mb-0">
+                        <li>
+                            Better stock visibility helps teams plan ahead, avoiding costly emergency
+                            purchases and delays on site.
+                        </li>
+                        <li>
+                            Clearer records make it easier for finance and operations to work together,
+                            improving trust and accountability.
+                        </li>
+                        <li>
+                            A structured digital system encourages more formal jobs in inventory,
+                            storekeeping, and data-driven decision making.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System structure / modules -->
+    <section class="section-spaced">
+        <div class="row gy-4 align-items-center">
+            <div class="col-lg-6">
+                <h2 class="h5 fw-semibold mb-2">How the system is organised</h2>
+                <p class="small text-muted mb-2">
+                    ITEMO IMS is broken into clear sections so that both users and developers
+                    can reason about the system without feeling lost.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>
+                        <strong>Inventory:</strong> Items, categories, and quantities on hand.
+                    </li>
+                    <li>
+                        <strong>Suppliers:</strong> Vendor records, contacts, and related orders.
+                    </li>
+                    <li>
+                        <strong>Clients / departments:</strong> Projects, sites, or internal units
+                        that receive materials.
+                    </li>
+                    <li>
+                        <strong>Orders and issues:</strong> Tracking what comes into the store and
+                        what leaves for the field.
+                    </li>
+                    <li>
+                        <strong>Payments:</strong> Overview of settled and pending payments
+                        against orders.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="preview-frame">
+                    <div class="preview-inner small text-muted">
+                        <div class="row gy-3">
+                            <div class="col-6">
+                                <strong class="d-block mb-1">For store teams</strong>
+                                <ul class="ps-3 mb-0">
+                                    <li>Log deliveries quickly.</li>
+                                    <li>See low stock at a glance.</li>
+                                    <li>Print or export records later.</li>
+                                </ul>
+                            </div>
+                            <div class="col-6">
+                                <strong class="d-block mb-1">For managers</strong>
+                                <ul class="ps-3 mb-0">
+                                    <li>Monitor high-value items.</li>
+                                    <li>Review suppliers and sites.</li>
+                                    <li>Track pending payments.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="mt-3 mb-0">
+                            In a production rollout, this structure can extend to multiple warehouses,
+                            approval flows, and richer reporting without changing the core idea.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech stack and project notes -->
+    <section class="section-spaced">
+        <div class="surface-card">
+            <div class="row gy-4">
+                <div class="col-md-6">
+                    <h2 class="h6 fw-semibold mb-2">Tech stack</h2>
+                    <ul class="small text-muted mb-0">
+                        <li>Backend: Django with standard class-based views and forms.</li>
+                        <li>Frontend: Bootstrap 5 plus a custom ITEMO theme.</li>
+                        <li>Database: Django’s relational ORM (SQLite in this demo).</li>
+                        <li>Auth: Built-in Django authentication and basic access control.</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="h6 fw-semibold mb-2">From demo to real deployment</h2>
+                    <ul class="small text-muted mb-0">
+                        <li>Connect to a production database such as PostgreSQL.</li>
+                        <li>Add user roles for storekeepers, project managers, and finance.</li>
+                        <li>Integrate payment gateways (for example, M-Pesa via Daraja API).</li>
+                        <li>Extend reports for monthly summaries and site-level comparisons.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
