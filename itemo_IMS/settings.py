@@ -136,19 +136,24 @@ LOGOUT_REDIRECT_URL = 'landing'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 # ========= M-Pesa Daraja sandbox configuration =========
 
 MPESA_ENVIRONMENT = "sandbox"  # keep this as sandbox for testing
-
 MPESA_CONSUMER_KEY = "ND65uGxA7UNXzenoaSqD3LzS5DSVzltnWyEWmnDo7xu2xKvh"
 MPESA_CONSUMER_SECRET = "NRuWb0ZZJQuPDuKbfY44Q7aJlT5xDHkv9GPOoo2kEZz0NQFgnCSytRXolERYOmBT"
 MPESA_SHORTCODE = "174379"
+MPESA_EXPRESS_SHORTCODE = "174379"
 MPESA_SHORTCODE_TYPE = "paybill"
-MPESA_EXPRESS_SHORTCODE = "174379"  # common sandbox paybill
 MPESA_PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
-MPESA_CALLBACK_URL = "https://example.com/store/mpesa/callback/"  # can be ngrok URL later
+#
+MPESA_CALLBACK_URL = "https://api.darajambili.com/express-payment"
+#MPESA_CALLBACK_URL = "https://example.com/store/mpesa/callback/" # can be ngrok URL later, beware of security issues when using ngrok
 
 # These two are mainly for B2C, but django_daraja wants them defined
 MPESA_INITIATOR_USERNAME = "testapi"           # from test credentials
 MPESA_INITIATOR_SECURITY_CREDENTIAL = "Safaricom123!!"  # or the one given
 B2C_SHORTCODE = '174379'
+
+
+

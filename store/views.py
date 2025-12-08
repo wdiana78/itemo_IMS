@@ -1,13 +1,10 @@
 
 from django_daraja.mpesa.core import MpesaClient
 from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages #to show short messages
+from django.contrib.auth.decorators import login_required   #so user must be logged in before they can view that page.
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404, redirect, render
-
-from django.urls import reverse
-
 
 
 from .forms import (
@@ -25,14 +22,24 @@ from .models import (
     StockIssue,
     Supplier,
     SupplierOrder,
-   
 )
 
 
-@login_required
-def dashboard(request):
-    items_qs = Item.objects.all()
 
+
+
+
+
+
+
+
+
+
+
+
+@login_required       #checks "is the user logged in?" If not, they are sent to the login page.
+def dashboard(request):    #request is the object that holds everything about the HTTP request,
+    items_qs = Item.objects.all()   #like item list from database
     search_query = request.GET.get("search", "").strip()
     if search_query:
         items_qs = items_qs.filter(name__icontains=search_query)
@@ -45,7 +52,7 @@ def dashboard(request):
         quantity__gt=0, quantity__lte=5
     ).count()
     out_of_stock_count = items_qs.filter(quantity=0).count()
-    recent_items = items_qs.order_by("-date_added")[:5]
+    recent_items = items_qs.order_by("-date_added")[:5]      #.order_by("-date_added") sorts items from newest to oldest.
 
     supplier_count = Supplier.objects.count()
     client_count = Client.objects.count()
@@ -72,7 +79,6 @@ def dashboard(request):
 
 # Items
 
-
 @login_required
 def item_list(request):
     items = Item.objects.all().order_by("name")
@@ -82,7 +88,7 @@ def item_list(request):
 @login_required
 def item_create(request):
     if request.method == "POST":
-        form = ItemForm(request.POST)
+        form = ItemForm(request.POST)    #if the http response is POST, create this item form filled in with submitted data
         if form.is_valid():
             form.save()
             messages.success(request, "Item saved successfully.")
@@ -97,8 +103,8 @@ def item_create(request):
 
 
 @login_required
-def item_update(request, pk):
-    item = get_object_or_404(Item, pk=pk)
+def item_update(request, pk):        #primary key (id) of the item from the URL.
+    item = get_object_or_404(Item, pk=pk)           #fetch the item if not tgere show 404 page
     if request.method == "POST":
         form = ItemForm(request.POST, instance=item)
         if form.is_valid():
@@ -130,10 +136,9 @@ def item_delete(request, pk):
 
 # Suppliers
 
-
 @login_required
 def supplier_list(request):
-    suppliers = Supplier.objects.all().order_by("name")
+    suppliers = Supplier.objects.all().order_by("name")   #fetsch all list of suppliers ordered by name
     return render(
         request,
         "store/supplier_list.html",
@@ -347,7 +352,7 @@ def issue_create(request):
     if request.method == "POST":
         form = StockIssueForm(request.POST)
         if form.is_valid():
-            issue = form.save(commit=False)
+            issue = form.save(commit=False)  #form.save(commit=False) creates a StockIssue object in memory but does not save it to the database yet.This gives you a chance to adjust stock before saving.
             item = issue.item
             if issue.quantity > item.quantity:
                 messages.error(
@@ -406,23 +411,21 @@ def payment_create(request):
 
 # M-Pesa payment for an order
 
-
-
 @login_required
 def start_mpesa_payment(request, order_id):
     """
     Start a real M-Pesa STK push using django_daraja MpesaClient.
     """
     order = get_object_or_404(SupplierOrder, id=order_id)
-    cl = MpesaClient()  # our little messenger
+    cl = MpesaClient()
 
     if request.method == "POST":
-        phone = request.POST.get("phone_number", "").strip()
+        phone = request.POST.get("phone_number", "").strip()   #get phone number from user request nd if it doesn't exist, return empty string
         if not phone:
             messages.error(request, "Please enter a phone number.")
-            return redirect("store:order_pay_mpesa", order_id=order.id)
+            return redirect("store:order_pay_mpesa", order_id=order.id)   #order_id=order.id passes the id into the URL.
 
-        amount = order.total_cost or 1  # just in case
+        amount = order.total_cost or 1  # If total_cost is None or zero, or 1 ensures there is at least 1. Safaricom cannot process 0 shillings.
 
         # 1. Create a PaymentRecord first
         payment = PaymentRecord.objects.create(
@@ -438,7 +441,7 @@ def start_mpesa_payment(request, order_id):
         transaction_desc = "ITEMO IMS payment"
         callback_url = settings.MPESA_CALLBACK_URL
 
-        try:
+        try:            #Start a block where we will "try" to run some code that might fail.
             response = cl.stk_push(
                 phone,
                 int(amount),  # amount must be an integer
@@ -456,7 +459,7 @@ def start_mpesa_payment(request, order_id):
             except Exception:
                 resp_data = str(response)
             
-            # Optional: show part of it in the UI
+            # Optional: show part of it in the UI to users
             messages.info(
                 request,
                 f"M-Pesa response: {resp_data}"
@@ -493,6 +496,7 @@ def start_mpesa_payment(request, order_id):
 
 
 
+#COMMENTED OUT AS I DECIDED TO USE MpesaClient Instead
 # @login_required
 # def order_pay_mpesa(request, pk):
 #     """
@@ -609,6 +613,3 @@ def start_mpesa_payment(request, order_id):
 #         {"order": order},
 #     )
 #
-# from django.contrib.auth.decorators import login_required
-#
-# from django.contrib.auth.decorators import login_required

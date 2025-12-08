@@ -29,10 +29,7 @@ urlpatterns = [
     path("orders/add/", views.order_create, name="order_create"),
     path("orders/<int:pk>/edit/", views.order_update, name="order_update"),
     path("orders/<int:pk>/delete/", views.order_delete, name="order_delete"),
-    path(
-        "orders/<int:order_id>/pay-mpesa/",
-        views.start_mpesa_payment,
-        name="order_pay_mpesa",
+    path("orders/<int:order_id>/pay-mpesa/", views.start_mpesa_payment, name="order_pay_mpesa",
     ),
 
     # issues
