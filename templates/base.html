@@ -27,16 +27,32 @@
 
         <div class="collapse navbar-collapse" id="mainNavbar">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{% url 'landing' %}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'faq' %}">FAQ</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
 
-                {% if user.is_authenticated %}
+                {# When NOT logged in: show marketing pages #}
+                {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'landing' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'faq' %}">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    </li>
+
+                {# When logged in: show app navigation only #}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'store:main_menu' %}">Main menu</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'store:dashboard' %}">Dashboard</a>
                     </li>
                 {% endif %}
+
             </ul>
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -149,11 +165,12 @@
             <div class="col-md-4">
                 <h6 class="footer-heading">ITEMO IMS</h6>
                 <p class="small text-footer-muted mb-2">
-                    Smart inventory for construction and stock heavy teams. Follow materials
-                    from supplier to site in one clear system.
+                    ITEMO IMS is an inventory management system that brings stock, orders,
+                    suppliers and clients into one workspace for growing teams.
                 </p>
                 <p class="small text-footer-muted mb-0">
-                    Demo inventory project, designed to grow into a full enterprise tool.
+                    Built to support construction, retail, wholesale and other stock heavy
+                    businesses that need clear, real time visibility of their inventory.
                 </p>
             </div>
 
@@ -193,16 +210,16 @@
                     </li>
                     <li>
                         <a href="{% url 'store:issue_list' %}" class="text-decoration-none">
-                            <span>Issues to sites</span>
+                            <span>Stock issues and dispatches</span>
                         </a>
                     </li>
                     <li>
                         <a href="{% url 'store:payment_list' %}" class="text-decoration-none">
-                            <span>Payments tracking</span>
+                            <span>Supplier payments tracking</span>
                         </a>
                     </li>
                     <li>
-                        <span>Audit trail (future module)</span>
+                        <span>Audit trail and activity log (upcoming module)</span>
                     </li>
                 </ul>
             </div>
@@ -210,13 +227,13 @@
             <div class="col-md-4 col-lg-4">
                 <h6 class="footer-heading">Contact</h6>
                 <p class="small text-footer-muted mb-1">
-                    Email: support@itemo-ims.demo
+                    Email: support@itemoims.com
                 </p>
                 <p class="small text-footer-muted mb-1">
                     Location: Nairobi, Kenya
                 </p>
                 <p class="small text-footer-muted mb-0">
-                    Hours: Mon to Fri, 8.30 a.m. to 5.00 p.m. (demo contact only).
+                    Support hours: Mon to Fri, 8.30 a.m. to 5.00 p.m. (EAT).
                 </p>
             </div>
         </div>
@@ -224,13 +241,12 @@
         <div class="footer-bottom small text-footer-muted">
             <div>© 2025 ITEMO IMS. All rights reserved.</div>
             <div class="mt-1">
-                Calm inventory control for construction and stock heavy teams.
+                Inventory management software for teams that rely on accurate stock, timely orders and trusted suppliers.
             </div>
         </div>
 
     </div>
 </footer>
-
 
 <script src="{% static 'style/css/bootstrap-5.3.8-dist/bootstrap.bundle.min.js' %}"></script>
 </body>

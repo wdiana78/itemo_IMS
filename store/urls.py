@@ -4,6 +4,7 @@ from . import views
 app_name = "store"
 
 urlpatterns = [
+    path("main-menu/", views.main_menu, name="main_menu"),
     path("dashboard/", views.dashboard, name="dashboard"),
 
     # items
@@ -35,6 +36,8 @@ urlpatterns = [
     # issues
     path("issues/", views.issue_list, name="issue_list"),
     path("issues/add/", views.issue_create, name="issue_create"),
+    path("issues/<int:pk>/edit/", views.issue_update, name="issue_update"),
+    path("issues/<int:pk>/delete/", views.issue_delete, name="issue_delete"),
 
     # payments
     path("payments/", views.payment_list, name="payment_list"),

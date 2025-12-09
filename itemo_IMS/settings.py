@@ -126,9 +126,10 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # for collectstatic later if needed
 
-LOGIN_URL = 'users:login'
-LOGIN_REDIRECT_URL = 'store:dashboard'
-LOGOUT_REDIRECT_URL = 'landing'
+LOGIN_URL = "users:login"    #Where Django sends someone if they try to access a protected page without being logged in
+LOGIN_REDIRECT_URL = 'store:main_menu'     #sends someone after they successfully login
+# LOGIN_REDIRECT_URL = 'store:dashboard'
+LOGOUT_REDIRECT_URL = 'landing'      #Django sends someone after they log out
 
 
 

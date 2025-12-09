@@ -27,7 +27,7 @@ def login_user(request):
             next_url = request.GET.get("next")
             if next_url:
                 return redirect(next_url)
-            return redirect("store:dashboard")
+            return redirect("store:main_menu")
         else:
             messages.error(request, "Invalid username or password")
 

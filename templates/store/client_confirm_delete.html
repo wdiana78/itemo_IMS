@@ -1,27 +1,39 @@
 {% extends "base.html" %}
+
 {% block title %}Delete Client | ITEMO IMS{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4 p-lg-5">
+    <div class="col-lg-6 col-xl-5">
+        <div class="card shadow-sm border-0 surface-card">
+            <div class="card-body p-4">
                 <h3 class="mb-3 text-danger">Delete Client</h3>
-                <p>
-                    Are you sure you want to delete
-                    <strong>{{ client.name }}</strong>?
-                </p>
-                <p class="text-muted small mb-4">
-                    This action cannot be undone!
+                <p class="mb-3">
+                    You are about to delete this client record:
                 </p>
 
-                <form method="post">
+                <ul class="list-unstyled mb-4">
+                    <li><strong>Name:</strong> {{ client.name }}</li>
+                    {% if client.email %}
+                        <li><strong>Email:</strong> {{ client.email }}</li>
+                    {% endif %}
+                    {% if client.phone %}
+                        <li><strong>Phone:</strong> {{ client.phone }}</li>
+                    {% endif %}
+                </ul>
+
+                <p class="text-muted small mb-4">
+                    This action cannot be undone!
+                    
+                </p>
+
+                <form method="post" class="d-flex justify-content-between">
                     {% csrf_token %}
                     <a href="{% url 'store:client_list' %}" class="btn btn-outline-secondary">
                         Cancel
                     </a>
-                    <button type="submit" class="btn btn-danger">
-                        Yes, delete
+                    <button type="submit" class="btn btn-outline-danger">
+                        Yes, delete client
                     </button>
                 </form>
             </div>

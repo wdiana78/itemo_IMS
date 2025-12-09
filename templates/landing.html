@@ -1,8 +1,71 @@
 {% extends 'base.html' %}
 {% block title %}Home | ITEMO IMS{% endblock %}
+{% load static %}
 {% block content %}
 
 <div class="landing-shell">
+
+    <!-- INDUSTRY CHOOSER BAND (just below header) -->
+    <div class="mt-4 p-3 border rounded bg-light">
+        <h5 class="mb-2 text-dark">Choose your industry</h5>
+        <p class="small mb-3 text-dark">
+            ITEMO IMS is built for multi-industry inventory management. For now, the Construction
+            workspace is active; additional industry templates are coming soon.
+        </p>
+
+        <div class="row g-2 align-items-center">
+            <div class="col-md-6">
+                <select id="industrySelect" class="form-select">
+                    <option value="construction" selected>Construction company</option>
+                    <option value="retail">Retail / wholesale</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="healthcare">Healthcare facility</option>
+                </select>
+            </div>
+            <div class="col-md-6 d-flex gap-2">
+                <a id="getStartedBtn"
+                   href="{% url 'users:login' %}"
+                   class="btn btn-primary flex-grow-1">
+                    Continue with Construction
+                </a>
+            </div>
+        </div>
+
+        <p id="industryInfo" class="small mt-2 mb-0">
+            You selected Construction. After you log in, ITEMO IMS will open your construction main menu.
+        </p>
+    </div>
+
+    <script>
+        (function () {
+            const select = document.getElementById("industrySelect");
+            const btn = document.getElementById("getStartedBtn");
+            const info = document.getElementById("industryInfo");
+
+            function updateIndustry() {
+                const value = select.value;
+
+                if (value === "construction") {
+                    btn.classList.remove("disabled");
+                    btn.removeAttribute("aria-disabled");
+                    btn.href = "{% url 'users:login' %}";
+                    btn.textContent = "Continue with Construction";
+
+                    info.textContent = "You selected Construction. After you log in, ITEMO IMS will open your construction main menu.";
+                } else {
+                    btn.classList.add("disabled");
+                    btn.setAttribute("aria-disabled", "true");
+                    btn.href = "#";
+                    btn.textContent = "Coming soon";
+
+                    info.textContent = "Support for this industry is coming soon. For now, you can explore ITEMO IMS using the construction workspace.";
+                }
+            }
+
+            select.addEventListener("change", updateIndustry);
+            updateIndustry();
+        })();
+    </script>
 
     <!-- HERO -->
     <section class="landing-hero section-spaced">
@@ -12,16 +75,18 @@
                 <div class="hero-copy-panel">
                     <span class="hero-pill d-inline-flex align-items-center mb-3">
                         <span class="hero-pill-dot me-2"></span>
-                        Inventory made calm for busy project teams
+                        Inventory management made calm for busy teams
                     </span>
 
                     <h1 class="hero-title mb-3">
-                        Smart inventory for construction and stock heavy businesses.
+                        Smart inventory management for stock-heavy businesses.
                     </h1>
 
                     <p class="hero-subtitle mb-4">
-                        ITEMO IMS gives you a clear view of materials, suppliers, and outgoing items,
-                        so you avoid surprise stock outs and last minute rush at site level.
+                        ITEMO IMS is an online inventory management system that gives you a clear view of
+                        items, suppliers, and stock movements in one place. Reduce stock-outs, avoid
+                        last-minute rush orders, and keep every project, store, or branch working with
+                        accurate, up-to-date data.
                     </p>
 
                     <div class="d-flex flex-wrap gap-2 mb-4">
@@ -39,15 +104,15 @@
                         {% endif %}
                     </div>
 
-                    <div class="hero-meta small text-muted">
+                    <div class="hero-meta small">
                         <div class="hero-meta-item">
-                            <span class="dot dot-orange me-2"></span> Built with Django and Bootstrap
+                            <span class="dot dot-orange me-2"></span> Flexible inventory management across multiple industries
                         </div>
                         <div class="hero-meta-item">
-                            <span class="dot dot-amber me-2"></span> Designed for multi site projects
+                            <span class="dot dot-amber me-2"></span> Ideal for projects, central stores, branches, and departments
                         </div>
                         <div class="hero-meta-item">
-                            <span class="dot dot-rose me-2"></span> M Pesa ready through Daraja sandbox
+                            <span class="dot dot-rose me-2"></span> Ready for integrations such as M-Pesa and other payment flows
                         </div>
                     </div>
                 </div>
@@ -63,16 +128,16 @@
                             <span class="window-dot dot-emerald"></span>
                         </div>
                         <span class="hero-window-label">
-                            ITEMO IMS · Live overview
+                            ITEMO IMS · Inventory overview
                         </span>
                     </div>
 
                     <div class="hero-visual-header d-flex justify-content-between align-items-center mb-3">
                         <div>
-                            <div class="small text-muted">Live overview</div>
-                            <div class="fw-semibold">Main store - construction project</div>
+                            <div class="small">Live overview</div>
+                            <div class="fw-semibold">Main store · construction sample workspace</div>
                         </div>
-                        <span class="badge badge-soft-amber">Demo</span>
+                        <span class="badge badge-soft-amber">Sample workspace</span>
                     </div>
 
                     <div class="row g-3 mb-3">
@@ -107,7 +172,7 @@
 
                     <div class="hero-table-box">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div class="small fw-semibold text-muted">Recent material lines</div>
+                            <div class="small fw-semibold">Recent item lines</div>
                             <span class="small text-brand-primary">View all</span>
                         </div>
                         <div class="hero-table-row">
@@ -138,7 +203,8 @@
                 <div class="info-strip-card">
                     <div class="info-strip-label">Who is it for</div>
                     <p class="info-strip-text mb-0">
-                        Construction firms, hardware shops, and any stock heavy team.
+                        Construction firms, hardware stores, clinics, retail outlets, distributors,
+                        and any stock heavy operations team that needs clear, reliable inventory data.
                     </p>
                 </div>
             </div>
@@ -146,7 +212,8 @@
                 <div class="info-strip-card">
                     <div class="info-strip-label">What it tracks</div>
                     <p class="info-strip-text mb-0">
-                        Items, suppliers, clients or departments, orders, issues, and payments.
+                        Items, categories, suppliers, clients or departments, purchase orders,
+                        stock movements, and related payment information in one inventory system.
                     </p>
                 </div>
             </div>
@@ -154,7 +221,8 @@
                 <div class="info-strip-card">
                     <div class="info-strip-label">Why it helps</div>
                     <p class="info-strip-text mb-0">
-                        Fewer stock surprises, better planning, and a cleaner audit trail.
+                        Fewer stock surprises, better inventory planning, and a clearer audit trail
+                        across your operations, from head office to site level.
                     </p>
                 </div>
             </div>
@@ -167,12 +235,13 @@
             <div class="col-lg-5">
                 <div class="section-label">Core strengths</div>
                 <h2 class="section-title mb-3">
-                    Follow material from supplier to site in one simple system.
+                    Follow every item from supplier to project or department in one system.
                 </h2>
                 <p class="section-subtitle">
-                    ITEMO IMS keeps the flow of materials clear from purchase order
-                    to delivery to items issued out to departments or project sites.
-                    Simple screens, familiar forms, less confusion.
+                    ITEMO IMS keeps your inventory lifecycle in one connected flow – from purchase
+                    order and delivery into store, to items issued out to projects, branches, or
+                    departments. The goal is simple screens, familiar forms, and less confusion
+                    for the people who actually use the system every day.
                 </p>
             </div>
             <div class="col-lg-7">
@@ -180,27 +249,31 @@
                     <div class="col-md-4">
                         <div class="feature-simple">
                             <div class="feature-badge">01</div>
-                            <h6 class="fw-semibold mb-1">Clean stock records</h6>
+                            <h6 class="fw-semibold mb-1 text-brand-primary">Clean stock records</h6>
                             <p class="small mb-0 text-muted">
-                                Items, quantities, and values recorded in one place with clear status for low or out of stock.
+                                Items, quantities, and values recorded in one place with clear
+                                indicators for healthy, low, and out-of-stock levels across locations.
                             </p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="feature-simple">
                             <div class="feature-badge">02</div>
-                            <h6 class="fw-semibold mb-1">Supplier visibility</h6>
+                            <h6 class="fw-semibold mb-1 text-brand-primary">Supplier visibility</h6>
                             <p class="small mb-0 text-muted">
-                                Central list of suppliers with contacts and their related purchase orders.
+                                Central supplier list with contact details and linked purchase
+                                orders and deliveries, making it easier to follow performance
+                                and spend over time.
                             </p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="feature-simple">
                             <div class="feature-badge">03</div>
-                            <h6 class="fw-semibold mb-1">Issues and payments</h6>
+                            <h6 class="fw-semibold mb-1 text-brand-primary">Issues and payments</h6>
                             <p class="small mb-0 text-muted">
-                                Track what left the store, who received it, and how it was paid for, including M Pesa records.
+                                Track what leaves the store, who received it, and how it was paid for,
+                                including mobile money references where applicable, for a clean audit trail.
                             </p>
                         </div>
                     </div>
@@ -222,27 +295,33 @@
                     <div class="workflow-item">
                         <div class="workflow-dot"></div>
                         <div class="workflow-content">
-                            <h6 class="fw-semibold mb-1">Step 1 - Record items and suppliers</h6>
+                            <h6 class="fw-semibold mb-1">Step 1 – Record items and suppliers</h6>
                             <p class="small mb-0 text-muted">
-                                Capture your common materials, suppliers, and project clients or departments, once.
+                                Set up your common materials or products, suppliers, and key
+                                clients, branches, or departments once, so every transaction
+                                in ITEMO IMS uses consistent master data.
                             </p>
                         </div>
                     </div>
                     <div class="workflow-item">
                         <div class="workflow-dot"></div>
                         <div class="workflow-content">
-                            <h6 class="fw-semibold mb-1">Step 2 - Log orders and deliveries</h6>
+                            <h6 class="fw-semibold mb-1">Step 2 – Log orders and deliveries</h6>
                             <p class="small mb-0 text-muted">
-                                Raise purchase orders and update stock when deliveries arrive at the main store.
+                                Raise purchase orders and update stock as deliveries arrive at
+                                your main store or warehouse, keeping inventory balances aligned
+                                with what is physically on the shelf.
                             </p>
                         </div>
                     </div>
                     <div class="workflow-item">
                         <div class="workflow-dot"></div>
                         <div class="workflow-content">
-                            <h6 class="fw-semibold mb-1">Step 3 - Issue items and track payments</h6>
+                            <h6 class="fw-semibold mb-1">Step 3 – Issue items and track payments</h6>
                             <p class="small mb-0 text-muted">
-                                Record issues to sites or departments and attach payment details so finance and stores stay aligned.
+                                Record issues to sites, branches, or departments and attach payment
+                                details, so operations and finance share the same view of what was
+                                issued, to whom, and how it was settled.
                             </p>
                         </div>
                     </div>
@@ -251,15 +330,16 @@
 
             <div class="col-lg-6">
                 <div class="preview-frame">
-                    <div class="preview-inner">
-                        <span class="small text-muted">
-                            Add a construction site or warehouse photo here from your static files.
-                        </span>
+                    <div class="preview-inner p-0">
+                        <img src="{% static 'image/pexels-tiger-lily-4487360.jpg' %}" alt="Warehouse and inventory overview"
+                        class="img-fluid rounded-3 w-100"
+                        
+                        >
                     </div>
                     <ul class="small text-muted mt-3 mb-0 ps-3">
-                        <li>Works on laptop or desktop through the browser.</li>
-                        <li>Built with Django only, using beginner friendly patterns.</li>
-                        <li>Ready for more modules later - item requests, procurement, payments, and more.</li>
+                        <li>Accessible through the browser on laptops and desktops for your whole team.</li>
+                        <li>Structured to keep inventory data consistent and easy to navigate.</li>
+                        <li>Ready for more modules later – item requests, procurement, payments, and reporting.</li>
                     </ul>
                 </div>
             </div>
@@ -273,7 +353,9 @@
                 <div class="col-md-8">
                     <h3 class="mb-1 text-white">Ready to give your inventory a calm home</h3>
                     <p class="mb-0 text-white-50 small">
-                        Start with a few items, suppliers, and one project. You can grow ITEMO IMS as your work grows.
+                        Start with a few items, suppliers, and one project or department. As your
+                        operations grow, you can scale your ITEMO IMS workspace to more users,
+                        locations, and modules without losing control of your stock.
                     </p>
                 </div>
                 <div class="col-md-4 text-md-end">

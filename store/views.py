@@ -27,12 +27,9 @@ from .models import (
 
 
 
-
-
-
-
-
-
+@login_required
+def main_menu(request):
+    return render(request, "store/main_menu.html")
 
 
 
@@ -377,8 +374,53 @@ def issue_create(request):
     )
 
 
-# Payments
+@login_required
+def issue_update(request, pk):
+    issue = get_object_or_404(StockIssue, pk=pk)
 
+    if request.method == "POST":
+        form = StockIssueForm(request.POST, instance=issue)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Issue updated successfully.")
+            return redirect("store:issue_list")
+    else:
+        form = StockIssueForm(instance=issue)
+
+    return render(
+        request,
+        "store/issue_form.html",
+        {
+            "form": form,
+            "issue": issue,
+            "mode": "edit",
+        },
+    )
+
+
+@login_required
+def issue_delete(request, pk):
+    issue = get_object_or_404(StockIssue, pk=pk)
+
+    if request.method == "POST":
+        issue.delete()
+        messages.success(request, "Issue deleted.")
+        return redirect("store:issue_list")
+
+    return render(
+        request,
+        "store/issue_confirm_delete.html",
+        {"issue": issue},
+    )
+
+
+
+
+
+
+
+
+# Payments
 
 @login_required
 def payment_list(request):

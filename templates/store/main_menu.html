@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block title %}Main menu | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="py-4" style="background: radial-gradient(circle at top left, #b82859 0, #b50943 10%, #450313 50%, #1A0A0D 100%);">
+    
+    <div class="container">
+
+        <!-- Header -->
+        <div class="mb-4 text-center text-md-start text-white">
+            <span class="small text-uppercase fw-semibold" style="letter-spacing: .12em; opacity: .85;">
+                Main workspace
+            </span>
+            <h2 class="mb-1">Choose what you want to do</h2>
+            <p class="mb-0" style="opacity: .85;">
+                You are currently using ITEMO IMS for the
+                <strong>Construction</strong> workspace. Use the sidebar for daily tasks,
+                and this main menu for reports, planning and setup.
+            </p>
+        </div>
+
+        <!-- Cards grid -->
+        <div class="row g-4">
+
+            <!-- 1. Dashboard (real link) -->
+            <div class="col-md-3">
+                <a href="{% url 'store:dashboard' %}" class="text-decoration-none">
+                    <div class="card h-100 border-0 shadow-lg rounded-4">
+                        <div class="card-body">
+                            <div class="small text-uppercase fw-semibold text-primary mb-2">
+                                Today
+                            </div>
+                            <h5 class="card-title mb-1">Open dashboard</h5>
+                            <p class="card-text text-muted small mb-0">
+                                Quick snapshot of stock levels, low stock and key counts.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 2. Inventory reports -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Reports
+                        </div>
+                        <h5 class="card-title mb-1">Inventory reports</h5>
+                        <p class="card-text text-muted small mb-1">
+                            Period summaries of stock in, stock out and balances by item or category.
+                        </p>
+                        <span class="badge bg-light text-muted small">Planned module – coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Project & site summary -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Projects
+                        </div>
+                        <h5 class="card-title mb-1">Project & site summary</h5>
+                        <p class="card-text text-muted small mb-1">
+                            High-level view of which projects or sites are consuming the most materials.
+                        </p>
+                        <span class="badge bg-light text-muted small">Insights view – coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Supplier performance -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Suppliers
+                        </div>
+                        <h5 class="card-title mb-1">Supplier performance</h5>
+                        <p class="card-text text-muted small mb-1">
+                            On-time delivery rates, total spend and top suppliers by value and volume.
+                        </p>
+                        <span class="badge bg-light text-muted small">Analytics – coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Cost & spend analytics -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Finance
+                        </div>
+                        <h5 class="card-title mb-1">Cost & spend analytics</h5>
+                        <p class="card-text text-muted small mb-1">
+                            Track material costs, compare budget vs actual and highlight high-cost items.
+                        </p>
+                        <span class="badge bg-light text-muted small">Planned analytics module</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Stock health & alerts -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Alerts
+                        </div>
+                        <h5 class="card-title mb-1">Stock health centre</h5>
+                        <p class="card-text text-muted small mb-1">
+                            Central place for low stock, out-of-stock and slow-moving items across locations.
+                        </p>
+                        <span class="badge bg-light text-muted small">Alert rules – coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Data export & backups -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Data
+                        </div>
+                        <h5 class="card-title mb-1">Export & backups</h5>
+                        <p class="card-text text-muted small mb-1">
+                            Download key tables as CSV or prepare regular backups of your inventory data.
+                        </p>
+                        <span class="badge bg-light text-muted small">Exports – coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Workspace & user setup -->
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-lg rounded-4">
+                    <div class="card-body">
+                        <div class="small text-uppercase fw-semibold text-secondary mb-2">
+                            Setup
+                        </div>
+                        <h5 class="card-title mb-1">Workspace & users</h5>
+                        <p class="card-text text-muted small mb-1">
+                            Configure company details, roles and industry preferences for your ITEMO workspace.
+                        </p>
+                        <span class="badge bg-light text-muted small">Settings – coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-4 text-center text-white-50 small">
+            Use the left sidebar for everyday tasks; return to this main menu when you want the
+            bigger picture, planning tools or configuration.
+        </div>
+
+    </div>
+</div>
+{% endblock %}

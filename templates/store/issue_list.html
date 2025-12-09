@@ -23,6 +23,7 @@
                             <th>Quantity</th>
                             <th>Issue Date</th>
                             <th>Issued By</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +35,16 @@
                                 <td>{{ issue.quantity }}</td>
                                 <td>{{ issue.issue_date|date:"Y-m-d" }}</td>
                                 <td>{{ issue.issued_by|default:"-" }}</td>
+                                <td>
+                                    <a href="{% url 'store:issue_update' issue.pk %}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Edit
+                                    </a>
+                                    <a href="{% url 'store:issue_delete' issue.pk %}"
+                                       class="btn btn-sm btn-outline-danger ms-1">
+                                        Delete
+                                    </a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

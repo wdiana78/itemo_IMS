@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Delete Issue | ITEMO IMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-xl-5">
+        <div class="card shadow-sm border-0 surface-card">
+            <div class="card-body p-4">
+                <h3 class="mb-3 text-danger">Delete Issue</h3>
+                <p class="mb-3">
+                    You are about to delete this stock issue record:
+                </p>
+
+                <ul class="list-unstyled mb-4">
+                    <li>
+                        <strong>Item:</strong>
+                        {{ issue.item.name }}
+                    </li>
+                    <li>
+                        <strong>Client:</strong>
+                        {% if issue.client %}
+                            {{ issue.client.name }}
+                        {% else %}
+                            Not set
+                        {% endif %}
+                    </li>
+                    <li>
+                        <strong>Quantity issued:</strong>
+                        {{ issue.quantity }}
+                    </li>
+                    <li>
+                        <strong>Issue date:</strong>
+                        {{ issue.issue_date }}
+                    </li>
+                    <li>
+                        <strong>Issued by:</strong>
+                        {{ issue.issued_by|default:"Not recorded" }}
+                    </li>
+                </ul>
+
+                <p class="text-muted small mb-4">
+                    This action cannot be undone. Stock quantities will not be restored
+                    automatically by this delete action.
+                </p>
+
+                <form method="post" class="d-flex justify-content-between">
+                    {% csrf_token %}
+                    <a href="{% url 'store:issue_list' %}" class="btn btn-outline-secondary">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-outline-danger">
+                        Yes, delete issue
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
