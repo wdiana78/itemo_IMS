@@ -2,7 +2,7 @@
 {% block title %}Main menu | ITEMO IMS{% endblock %}
 
 {% block content %}
-<div class="py-4" style="background: radial-gradient(circle at top left, #b82859 0, #b50943 10%, #450313 50%, #1A0A0D 100%);">
+<div class="py-4  rounded-5 " style="background: radial-gradient( circle at top left, #fa05b5 0, #60192c 45%, #1A0A0D 80%);">
     
     <div class="container">
 
@@ -11,8 +11,8 @@
             <span class="small text-uppercase fw-semibold" style="letter-spacing: .12em; opacity: .85;">
                 Main workspace
             </span>
-            <h2 class="mb-1">Choose what you want to do</h2>
-            <p class="mb-0" style="opacity: .85;">
+            <h2 class="mb-1 text-white fw-bold">Choose what you want to do</h2>
+            <p class="mb-0 text-light" style="opacity: .85;">
                 You are currently using ITEMO IMS for the
                 <strong>Construction</strong> workspace. Use the sidebar for daily tasks,
                 and this main menu for reports, planning and setup.
@@ -26,7 +26,7 @@
             <div class="col-md-3">
                 <a href="{% url 'store:dashboard' %}" class="text-decoration-none">
                     <div class="card h-100 border-0 shadow-lg rounded-4">
-                        <div class="card-body">
+                        <div class="card-body ">
                             <div class="small text-uppercase fw-semibold text-primary mb-2">
                                 Today
                             </div>

@@ -33,7 +33,7 @@ body {
     border-radius: 28px;
     padding: 3rem 2rem 3rem;
     background:
-        radial-gradient(circle at top left, #eef2ff 0, #e0f2fe 45%, #fdf2ff 100%);
+        radial-gradient(circle at top left, #fff7fc 0, #ebf5fa 45%, #f7fdff 100%);
     box-shadow: 0 28px 70px rgba(15, 23, 42, 0.18);
     overflow: hidden;
 }
@@ -400,14 +400,14 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     border-radius: 999px;
     font-size: 0.82rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    background: rgba(79, 70, 229, 0.08);
-    color: #4f46e5;
+    background: rgba(1, 1, 1, 0.08);
+    color: #d91f02;
 }
 
 /* ========== Workflow ========== */
@@ -481,7 +481,7 @@ body {
 .cta-band {
     border-radius: 28px;
     padding: 1.9rem 2.2rem;
-    background: linear-gradient(120deg, #2563eb, #7c3aed, #f97316);
+    background: linear-gradient(120deg, #2563eb, #7c3aed, #f97316);  /*specifies direction the colors should move in*/
     box-shadow:
         0 22px 60px rgba(37, 99, 235, 0.45),
         0 0 0 1px rgba(255, 255, 255, 0.45);
